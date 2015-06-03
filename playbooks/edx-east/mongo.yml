@@ -7,7 +7,8 @@
   serial: "{{ serial_count }}"
   roles:
     - mongo
-    - mongo_mms
+    # Doesn't work in default case, not MMSAPIKEY
+    #    - mongo_mms
     - role: datadog
       when: COMMON_ENABLE_DATADOG
     - role: splunkforwarder
