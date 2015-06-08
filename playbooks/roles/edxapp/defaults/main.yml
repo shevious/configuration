@@ -488,6 +488,11 @@ EDXAPP_PARSE_KEYS: {}
 EDXAPP_EDXNOTES_INTERFACE:
   url: http://localhost:18120/api/v1
 
+# Comprehensive Theming
+EDXAPP_USE_COMP_THEME: false
+EDXAPP_COMP_THEME_NAME: ""
+EDXAPP_COMP_THEME_DIR: ""
+
 #-------- Everything below this line is internal to the role ------------
 
 #Use YAML references (& and *) and hash merge <<: to factor out shared settings
@@ -767,6 +772,8 @@ generic_env_config:  &edxapp_generic_env
   VIRTUAL_UNIVERSITIES: "{{ EDXAPP_VIRTUAL_UNIVERSITIES }}"
   SUBDOMAIN_BRANDING: "{{ EDXAPP_SUBDOMAIN_BRANDING }}"
   REGISTRATION_EXTRA_FIELDS: "{{ EDXAPP_REGISTRATION_EXTRA_FIELDS }}"
+  COMP_THEME_NAME: "{{ EDXAPP_COMP_THEME_NAME }}"
+  COMP_THEME_DIR: "{{ EDXAPP_COMP_THEME_DIR }}"
 
 lms_auth_config:
   <<: *edxapp_generic_auth
@@ -890,7 +897,7 @@ worker_core_mult:
   lms: 4
   cms: 2
 
-# Theming
+# Stanford-style Theming
 # Turn theming on and off with edxapp_use_custom_theme
 # Set theme name with edxapp_theme_name
 # Stanford, for example, uses edxapp_theme_name: 'stanford'
