@@ -1,3 +1,8 @@
+# for KMOOC 
+$ exports OPENEDX_RELEASE "named-release/birch"
+$ exports KMOOC_RELEASE "kmooc.rc0"
+$ exports KMOOC_GITPATH <github repo username>
+
 # Configuration Management
 
 ## Introduction
