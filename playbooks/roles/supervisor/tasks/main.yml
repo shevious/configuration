@@ -199,9 +199,9 @@
     - install:configuration
 
 - name: Start supervisor
-  service:
-    name: "{{ supervisor_service }}"
-    state: started
+  shell: "service supervisor start"
+#    name: "{{ supervisor_service }}"
+#    state: started
   register: start_supervisor
   tags:
     - manage

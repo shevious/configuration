@@ -80,9 +80,14 @@
     - install:base
 
 - name: Stop mongod service
-  service:
-    name: mongod
+#  service:
+#    name: mongod
+#    state: stopped
+  supervisorctl:
     state: stopped
+    supervisorctl_path: '/usr/local/bin/supervisorctl'
+    config: '/etc/supervisor/supervisord.conf'
+    name: mongod
   tags:
     - manage
     - manage:stop
@@ -119,9 +124,15 @@
     - install:configuration
 
 - name: Start mongo service
-  service:
+#  service:
+#    name: mongod
+#    state: started
+  supervisorctl:
+    state: restarted
+    supervisorctl_path: '/usr/local/bin/supervisorctl'
+    config: '/etc/supervisor/supervisord.conf'
     name: mongod
-    state: started
+  become_user: root
   tags:
     - manage
     - manage:start
