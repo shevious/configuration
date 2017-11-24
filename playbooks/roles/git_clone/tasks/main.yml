@@ -73,11 +73,47 @@
     version: "{{ item.VERSION }}"
   become_user: "{{ repo_owner }}"
   register: code_checkout
-  when: item.PROTOCOL == "https" and GIT_REPOS is defined
+  when: item.PROTOCOL == "https" and GIT_REPOS is defined and GIT_REPOS != ECOMMERCE_REPOS
   with_items: GIT_REPOS
   tags:
     - install
     - install:code
+
+#- debug:
+#    var: GIT_REPOS
+
+#- debug:
+#    var: ECOMMERCE_REPOS
+
+- name: Checkout code over https ecommerce modified by shevious
+  git_2_0_1:
+    repo: "https://{{ item.DOMAIN }}/{{ item.PATH }}/{{ item.REPO }}"
+    dest: "{{ item.DESTINATION }}"
+    version: "{{ item.VERSION }}"
+  become_user: "{{ repo_owner }}"
+  register: code_checkout
+  when: item.PROTOCOL == "https" and GIT_REPOS is defined and GIT_REPOS == ECOMMERCE_REPOS
+  with_items: GIT_REPOS
+  tags:
+    - install
+    - install:code
+  ignore_errors: true
+
+- name: ecommerce eucalyptus patch 1 base.txt by shevious
+  lineinfile:
+    dest: "{{ item.DESTINATION }}/requirements/base.txt"
+    line: "cryptography==1.9"
+  become_user: "{{ repo_owner }}"
+  when: item.PROTOCOL == "https" and GIT_REPOS is defined and GIT_REPOS == ECOMMERCE_REPOS
+  with_items: GIT_REPOS
+
+- name: ecommerce eucalyptus patch 2 base.txt by shevious
+  lineinfile:
+    dest: "{{ item.DESTINATION }}/requirements/base.txt"
+    line: "python-social-auth==0.2.21"
+  become_user: "{{ repo_owner }}"
+  when: item.PROTOCOL == "https" and GIT_REPOS is defined and GIT_REPOS == ECOMMERCE_REPOS
+  with_items: GIT_REPOS
 
 - name: Remove read-only ssh key
   file:
