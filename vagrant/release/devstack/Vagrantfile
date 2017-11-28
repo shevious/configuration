@@ -32,7 +32,7 @@ if [ -n "$OPENEDX_RELEASE" ]; then
     -e ECOMMERCE_WORKER_VERSION=$OPENEDX_RELEASE \
     -e PROGRAMS_VERSION=$OPENEDX_RELEASE \
   "
-  CONFIG_VER=$OPENEDX_RELEASE
+  CONFIG_VER="eucalyptus.update"
   # Need to ensure that the configuration repo is updated
   # The vagrant-devstack.yml playbook will also do this, but only
   # after loading the playbooks into memory.  If these are out of date,
