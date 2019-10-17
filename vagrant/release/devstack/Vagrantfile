@@ -13,7 +13,6 @@ CPU_COUNT = 2
 # same name but upper-cased.
 VERSION_VARS = [
     'edx_platform_version',
-    'configuration_version',
     'certs_version',
     'forum_version',
     'xqueue_version',
@@ -70,7 +69,7 @@ openedx_releases = {
 }
 openedx_releases.default = "ficus-devstack-2017-02-07"
 
-openedx_release = ENV['OPENEDX_RELEASE']
+openedx_release = "open-release/ficus.master"
 boxname = ENV['OPENEDX_BOXNAME']
 
 # Build -e override lines for each overridable variable.
@@ -88,11 +87,13 @@ if [ ! -d /edx/app/edx_ansible ]; then
     exit 1
 fi
 export PYTHONUNBUFFERED=1
+sudo -Hu edx-ansible rm -rf /edx/app/edx_ansible/edx_ansible
+sudo -Hu edx-ansible git clone --origin origin --branch ficus.update https://github.com/shevious/configuration.git /edx/app/edx_ansible/edx_ansible
 source /edx/app/edx_ansible/venvs/edx_ansible/bin/activate
 cd /edx/app/edx_ansible/edx_ansible/playbooks
 
 EXTRA_VARS="#{extra_vars_lines}"
-CONFIG_VER="#{ENV['CONFIGURATION_VERSION'] || openedx_release || 'master'}"
+CONFIG_VER="ficus.update"
 
 ansible-playbook -i localhost, -c local run_role.yml -e role=edx_ansible -e configuration_version=$CONFIG_VER $EXTRA_VARS
 ansible-playbook -i localhost, -c local vagrant-devstack.yml -e configuration_version=$CONFIG_VER $EXTRA_VARS
