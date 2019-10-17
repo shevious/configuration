@@ -6,7 +6,6 @@
     version: "{{ configuration_version }}"
     accept_hostkey: yes
   become_user: "{{ edx_ansible_user }}"
-  ignore_errors: yes
   tags:
     - install
     - install:code
