@@ -191,6 +191,7 @@
   shell: "gem install rubygems-update && update_rubygems"
   become_user: "{{ rbenv_user }}"
   environment: "{{ rbenv_environment }}"
+  when: false
   tags:
     - install
     - install:base
