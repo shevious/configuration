@@ -53,7 +53,8 @@
 # We dry-run because unattended-upgrade is quiet, and only had -d (debug) not -v (verbose)
 - name: "Take security updates during ansible runs"
   command: "{{ item }}"
-  when: SECURITY_UPGRADE_ON_ANSIBLE and false
+  #when: SECURITY_UPGRADE_ON_ANSIBLE
+  when: false
   with_items:
     - unattended-upgrade --dry-run
     - unattended-upgrade
