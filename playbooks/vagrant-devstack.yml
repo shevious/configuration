@@ -25,8 +25,7 @@
     - mysql
     - edxlocal
     - memcache
-    - mongo
-      when: false
+    #- mongo
     - role: rabbitmq
       rabbitmq_ip: 127.0.0.1
     - edxapp

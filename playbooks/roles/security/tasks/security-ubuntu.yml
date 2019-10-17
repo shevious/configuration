@@ -51,9 +51,9 @@
   when: SECURITY_UPDATE_ALL_PACKAGES or not SECURITY_UNATTENDED_UPGRADES
 
 # We dry-run because unattended-upgrade is quiet, and only had -d (debug) not -v (verbose)
-#- name: "Take security updates during ansible runs"
-#  command: "{{ item }}"
-#  when: SECURITY_UPGRADE_ON_ANSIBLE
-#  with_items:
-#    - unattended-upgrade --dry-run
-#    - unattended-upgrade
+- name: "Take security updates during ansible runs"
+  command: "{{ item }}"
+  when: SECURITY_UPGRADE_ON_ANSIBLE and false
+  with_items:
+    - unattended-upgrade --dry-run
+    - unattended-upgrade
