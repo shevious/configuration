@@ -31,8 +31,9 @@
     SANDBOX_ENABLE_RABBITMQ: true
     JOURNALS_ENABLED: false
   roles:
-    - role: swapfile
-      SWAPFILE_SIZE: 4GB
+# remove swap for the legacy server
+#    - role: swapfile
+#      SWAPFILE_SIZE: 4GB
     - role: nginx
       nginx_sites:
       - certs
