@@ -36,33 +36,78 @@
     - install
     - install:base
 
-- name: Add the mongodb signing key
-  apt_key:
-    id: "{{ MONGODB_APT_KEY }}"
-    keyserver: "{{ MONGODB_APT_KEYSERVER }}"
-    state: present
-  tags:
-    - install
-    - install:base
+#- name: Add the mongodb signing key
+#  apt_key:
+#    id: "{{ MONGODB_APT_KEY }}"
+#    keyserver: "{{ MONGODB_APT_KEYSERVER }}"
+#    state: present
+#  tags:
+#    - install
+#    - install:base
 
-- name: Add the mongodb repo to the sources list
-  apt_repository:
-    repo: "{{ MONGODB_REPO }}"
-    state: present
-  tags:
-    - install
-    - install:base
+#- name: Add the mongodb repo to the sources list
+#  apt_repository:
+#    repo: "{{ MONGODB_REPO }}"
+#    state: present
+#  tags:
+#    - install
+#    - install:base
 
-- name: Install mongo server and recommends
-  apt:
-    name: "mongodb-org={{ mongo_version }}"
-    state: present
-    install_recommends: yes
-    force: yes
-    update_cache: yes
-  tags:
-    - install
-    - install:base
+#- name: Install mongo server and recommends
+#  apt:
+#    name: "mongodb-org={{ mongo_version }}"
+#    state: present
+#    install_recommends: yes
+#    force: yes
+#    update_cache: yes
+#  tags:
+#    - install
+#    - install:base
+
+- name: Download mongo-org-server
+  get_url: 
+    url="http://91.194.60.112/mongodb/dists/mongodb/10gen/binary-amd64/mongodb-org-server_2.6.5_amd64.deb"
+    dest="/tmp/mongodb-org-server_2.6.5_amd64.deb"
+
+- name: Download mongo-org-shell
+  get_url: 
+    url="http://91.194.60.112/mongodb/dists/mongodb/10gen/binary-amd64/mongodb-org-shell_2.6.5_amd64.deb"
+    dest="/tmp/mongodb-org-shell_2.6.5_amd64.deb"
+
+- name: Download mongo-org-mongos
+  get_url: 
+    url="http://91.194.60.112/mongodb/dists/mongodb/10gen/binary-amd64/mongodb-org-mongos_2.6.5_amd64.deb"
+    dest="/tmp/mongodb-org-mongos_2.6.5_amd64.deb"
+
+- name: Download mongo-org-tools
+  get_url: 
+    url="http://91.194.60.112/mongodb/dists/mongodb/10gen/binary-amd64/mongodb-org-tools_2.6.5_amd64.deb"
+    dest="/tmp/mongodb-org-tools_2.6.5_amd64.deb"
+
+- name: Download mongo-org
+  get_url: 
+    url="http://91.194.60.112/mongodb/dists/mongodb/10gen/binary-amd64/mongodb-org_2.6.5_amd64.deb"
+    dest="/tmp/mongodb-org_2.6.5_amd64.deb"
+
+- name: Install mongo-org-server
+  apt: deb="/tmp/mongodb-org-server_2.6.5_amd64.deb"
+  sudo: true
+
+- name: Install mongo-org-shell
+  apt: deb="/tmp/mongodb-org-shell_2.6.5_amd64.deb"
+  sudo: true
+
+- name: Install mongo-org-mongos
+  apt: deb="/tmp/mongodb-org-mongos_2.6.5_amd64.deb"
+  sudo: true
+
+- name: Install mongo-org-tools
+  apt: deb="/tmp/mongodb-org-tools_2.6.5_amd64.deb"
+  sudo: true
+
+- name: Install mongo-org
+  apt: deb="/tmp/mongodb-org_2.6.5_amd64.deb"
+  sudo: true
 
 - name: Create mongo dirs
   file:
